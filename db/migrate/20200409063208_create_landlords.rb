@@ -1,13 +1,14 @@
 class CreateLandlords < ActiveRecord::Migration[6.0]
   def change
     create_table :landlords do |t|
-      t.string :landlord_username
+      t.string :username
       t.string :password_digest
-      t.number :landloard_phone_number
-      t.number :landlord_street_address_number
-      t.string :landlord_street_address_name
-      t.string :landlord_address_city
-      t.string :landlord_address_state
+      t.integer :phone_number
+      t.integer :street_address_number
+      t.string :street_address_name
+      t.string :address_city
+      t.string :address_state
+      t.integer :property_sales
 
       t.timestamps
     end
