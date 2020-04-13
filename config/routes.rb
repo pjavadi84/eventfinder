@@ -1,20 +1,23 @@
 Rails.application.routes.draw do
   root 'static#home'
 
-  #Users Routes:
-  get '/users/new', to: 'users#new', as: 'new_user'
-  post '/users', to: 'users#create'
-  get '/users/:id', to: 'users#show', as: 'user'
+  get '/signup' => 'users#new'
+  post '/signup' => 'users#create'
 
-  #Property Routes:
-  get '/properties', to: 'properties#index', as: 'properties'
-  get '/properties/new', to: 'properties#new', as: 'new_property'
-  post '/properties', to: 'properties#create'
-  get '/properties/:id', to: 'properties#show', as: 'property'
-  
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
 
-  #Landlord Routes:
-  get '/landlords/new', to: 'landlords#new', as: 'new_landlord'
-  post '/landlords', to: 'landlords#create'
-  get '/landlords/:id', to: 'landlords#show', as: 'landlord'
+  delete '/logout' => 'sessions#destroy'
+
+  resources :landlords do
+    resources :properties, only: [:index, :new, :show, :create]
+  end
+
+  resources :users do 
+    resources :properties, only: [:index, :show]
+  end
+
+  resources :users do
+    resources :events
+  end
 end

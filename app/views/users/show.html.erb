@@ -4,7 +4,7 @@
             <h2><%= @user.full_name %></h2>
             <p><strong>Phone Number: </strong><%= @user.phone_number %></p>
             <p><strong>Email: </strong><%= @user.email %></p>
-            
+
         <div class="guest information">
             <h4><strong>guest information: </strong></h4>
                 <div>
@@ -13,8 +13,8 @@
                 </div>
         </div>
 
-        <div class="links">
-            <p><%= link_to 'search location', properties_path %></p>
+        <div class="action">
+            <p><%= link_to 'See all hosted properties', landlord_properties_path(@user) %></p>
         </div>
-    </div>             
+    </div>      
 </div>

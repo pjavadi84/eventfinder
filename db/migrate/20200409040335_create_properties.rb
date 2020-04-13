@@ -8,9 +8,10 @@ class CreateProperties < ActiveRecord::Migration[6.0]
       t.string :street_address_name
       t.string :address_city
       t.string :address_state
-      t.boolean :event_type
+      t.string :event_type
       t.integer :maximum_occupancy
       t.float :profit_expectation
+      t.belongs_to :landlord, null: false, foreign_key: true
 
       t.timestamps
     end

@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2020_04_09_063208) do
     t.integer "duration"
     t.integer "user_id", null: false
     t.integer "property_id", null: false
+    t.integer "landlord_id", null: false
+    t.index ["landlord_id"], name: "index_events_on_landlord_id"
     t.index ["property_id"], name: "index_events_on_property_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
@@ -46,11 +48,13 @@ ActiveRecord::Schema.define(version: 2020_04_09_063208) do
     t.string "street_address_name"
     t.string "address_city"
     t.string "address_state"
-    t.boolean "event_type"
+    t.string "event_type"
     t.integer "maximum_occupancy"
     t.float "profit_expectation"
+    t.integer "landlord_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["landlord_id"], name: "index_properties_on_landlord_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -66,6 +70,8 @@ ActiveRecord::Schema.define(version: 2020_04_09_063208) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "events", "landlords"
   add_foreign_key "events", "properties"
   add_foreign_key "events", "users"
+  add_foreign_key "properties", "landlords"
 end

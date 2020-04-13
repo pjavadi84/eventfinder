@@ -1,6 +1,48 @@
 <div class="container">
-<p>Please provide information below to submit the property you are interested to host: </p>
-    <%= form_for @property do |f| %>
-        
+<p>Please submit the property you are interested to host: </p>
+    <%= form_for (@landlord @property) do |f| %>
+        <%= f.label :property_name %>
+        <%= f.text_field :property_name %>
+        <br>
+        <%= f.label :manager_name %>
+        <%= f.text_field :manager_name %>
+        <br>
+        <%= f.label :phone_number %>
+        <%= f.text_field :phone_number %>
+        <br>
+        <strong>Address:</strong>
+        <br>
+        <br>
+        <ul>
+            <%= f.fields_for :address do |address_form| %>
+                <li>
+                    <%= address_form.label "Address number:"%>
+                    <%= address_form.text_field :street_address_number %>
+
+                    <%= address_form.label "Street name:" %>
+                    <%= address_form.text_field :street_address_name %>
+
+                    <%= address_form.label "City:" %>
+                    <%= address_form.text_field :address_city %>
+
+                    <%= address_form.label "State:" %>
+                    <%= address_form.text_field :address_state %>
+                </li>
+            <% end %>
+        </ul>
+        <br>
+        <%= f.label "Event type:" %>
+        <%= f.text_field :event_type %>
+        <br>
+        <%= f.label "Maximum Occupancy:" %>
+        <%= f.text_field :maximum_occupancy %>
+        <br>
+        <%= f.label "Profit expected: " %>
+        <%= f.text_field :profit_expectation %>
+        <br>
+        <br>
+        <div class="action">
+            <%= f.submit class: "btn btn-primary" %>
+        </div>
     <% end %>
 </div>
