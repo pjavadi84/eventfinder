@@ -10,8 +10,7 @@ class PropertiesController < ApplicationController
    def create 
       @property = Property.new(property_params)
         if @property.save 
-            session[:user_id] = @user.id 
-            redirect_to landlord_property_path(@property)
+            redirect_to landlord_property_path(@landlord, @property)
         else
             render :new
         end

@@ -1,6 +1,7 @@
 <div class="container">
 <p>Please submit the property you are interested to host: </p>
-    <%= form_for (@landlord @property) do |f| %>
+    <%= form_for @property do |f| %>
+        <%= f.hidden_field :landlord_id %>
         <%= f.label :property_name %>
         <%= f.text_field :property_name %>
         <br>
