@@ -2,6 +2,7 @@
 <p>Please submit the property you are interested to host: </p>
     <%= form_for @property do |f| %>
         <%= f.hidden_field :landlord_id %>
+        <br>
         <%= f.label :property_name %>
         <%= f.text_field :property_name %>
         <br>

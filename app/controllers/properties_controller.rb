@@ -1,35 +1,40 @@
 class PropertiesController < ApplicationController
+
    def index 
-      @properties = Property.all
+      if params[:landlord_id]
+         @properties = Landlord.find(params[:landlord_id]).properties
+      else
+         @properties = Property.all
+      end
    end
 
    def new
-      @property = Property.new
+      if params[:landlord_id] && !Landlord.exists?(params[:landlord_id])
+         redirect_to landlords_path, alert: "Landlord not found"
+      else
+         @property = Property.new(landlord_id: params[:landlord_id])
+      end
+      # binding.pry
    end
 
    def create 
       @property = Property.new(property_params)
-        if @property.save 
-            redirect_to landlord_property_path(@landlord, @property)
-        else
-            render :new
-        end
-   #    if (@property = Property.create(property_params))
-   #       session[:property_id] = @property.id 
-   #       # binding.pry
-   #       redirect_to property_path(@property)
-   #   else
-   #       render 'new'
-   #   end
+      @property.save
+      redirect_to property_path(@property)
    end
 
    def show
-      @property = Property.find_by(id: params[:id])
+      if params[:landlord_id]
+         # @property = Property.find_by(landlord_id: params[:landlord_id])
+         @property = Landlord.find(params[:landlord_id]).properties.find(params[:id])
+      else
+         @property = Property.find(params[:id])
+      end
    end
 
    def property_params
       params.require(:property).permit(
-         :id,
+         :landlord_id,
          :property_name,
          :manager_name,
          :phone_number,

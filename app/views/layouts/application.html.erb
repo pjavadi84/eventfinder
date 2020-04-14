@@ -23,16 +23,24 @@
 
 <!-- navbar -->
 <nav>
+
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">EventFinder</a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">Javascript</a></li>
-        <li><a href="mobile.html">Mobile</a></li>
-      </ul>
+      <a class="brand-logo" href="<%= root_url %>/">EventFinder</a>
+      <!-- conditions to see if user or landlord needs to register or login -->
+      <% if (!current_user || !current_landlord) %>
+        <a class="navbar-brand" href="<%= new_user_path %>">New User Signup</a>
+        <a class="navbar-brand" href="<%= new_landlord_path %>">New Landlord Signup</a>
+        <%= link_to "User Login!", user_login_path, class: "navbar-brand" %>
+        <%= link_to "Landlord Login!", landlord_login_path, class: "navbar-brand" %>
+      <% end %>
+      <% if (current_user || current_landlord) %>
+        <%= link_to "#{current_user.username}'s profile", user_path(current_user), class: "navbar-brand" %>
+        <%= link_to "#{current_landlord.username}'s profile", landlord_path(current_user), class: "navbar-brand" %>
+        <%= link_to "User Logout", user_logout_path, class: "navbar-brand", method: 'delete' %>
+        <%= link_to "Landlord Logout", landlord_logout_path, class: "navbar-brand", method: 'delete' %>
+      <% end %>
     </div>
+
   </nav>
 
   <ul class="sidenav" id="mobile-demo">

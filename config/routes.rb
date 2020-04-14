@@ -1,15 +1,23 @@
 Rails.application.routes.draw do
   root 'static#home'
 
-  get '/signup' => 'users#new'
-  post '/signup' => 'users#create'
+  get '/signup/user' => 'users#new'
+  post '/signup/user' => 'users#create'
 
-  get '/login' => 'sessions#new'
-  post '/login' => 'sessions#create'
+  get '/signup/landlord' => 'landlords#new'
+  post '/signup/landlord' => 'landlords#create'
 
-  delete '/logout' => 'sessions#destroy'
+  get '/user_login' => 'sessions#new'
+  post '/user_login' => 'sessions#create'
 
-  resources :properties, only: [:create]
+  get '/landlord_login' => 'sessions#new'
+  post '/landlord_login' => 'sessions#create'
+
+  delete '/user/logout' => 'sessions#destroy'
+  delete '/landlord/logout' => 'sessions#destroy'
+
+  resources :properties
+  
 
   resources :landlords do
     resources :properties, only: [:index, :new, :show]
